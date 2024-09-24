@@ -20,12 +20,17 @@ cd CUSTOMFIPS
 wget https://www.openssl.org/source/openssl-${FIPS_VERSION}.tar.gz
 tar xf openssl-${FIPS_VERSION}.tar.gz
 rm openssl-${FIPS_VERSION}.tar.gz
-cd openssl-${FIPS_VERSION}
+mv openssl-${FIPS_VERSION}/* .
+rm -rf openssl-${FIPS_VERSION}
 ./Configure enable-fips
 make -j$(nproc)
 
-cp providers/fips.so ../../providers
-cd ../..
+sed -i '/^\s*\$(MAKE) -C build_shared all/a\
+# install our custom fips.so\
+override_dh_auto_build:\
+cp CUSTOMFIPS/providers/fips.so providers/fips.so\
+cp CUSTOMFIPS/providers/fipsmodule.cnf providers/fipsmodule.cnf' debian/rules
+
 
 sed -i '/CONFARGS *=/ s/$/ enable-fips/' debian/rules
 echo "usr/lib/ssl/fipsmodule.cnf" >> debian/openssl.install

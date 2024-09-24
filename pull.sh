@@ -25,6 +25,8 @@ rm -rf openssl-${FIPS_VERSION}
 ./Configure enable-fips
 make -j$(nproc)
 
+cd ..
+
 sed -i '/^\s*\$(MAKE) -C build_shared all/a\
 # install our custom fips.so\
 override_dh_auto_build:\

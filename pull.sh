@@ -39,3 +39,4 @@ sed -i '/^\s*\$(MAKE) -C build_shared all/a\
 
 
 sed -i '/CONFARGS *=/ s/$/ enable-fips/' debian/rules
+echo "usr/lib/ssl/fipsmodule.cnf" >> debian/openssl.install

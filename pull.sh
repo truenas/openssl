@@ -27,15 +27,20 @@ make -j$(nproc)
 
 cd ..
 
-sed -i '/^\s*\$(MAKE) -C build_shared all/a\
-\
-\t# install our custom fips.so\
-\t# I am unsure if we use the build_shared or build_static, pretty sure shared.\
-\t# Just to be safe I moved it to both.\
-\tcp CUSTOMFIPS/providers/fips.so build_static/providers/fips.so\
-\tcp CUSTOMFIPS/providers/fipsmodule.cnf build_static/providers/fipsmodule.cnf\
-\tcp CUSTOMFIPS/providers/fips.so build_shared/providers/fips.so\
-\tcp CUSTOMFIPS/providers/fipsmodule.cnf build_shared/providers/fipsmodule.cnf' debian/rules
+# Add custom FIPS installation to override_dh_auto_configure
+sed -i '/override_dh_auto_configure:/a\
+\tmkdir -p debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules\
+\tcp CUSTOMFIPS/providers/fips.so debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules/\
+\tcp CUSTOMFIPS/providers/fipsmodule.cnf debian/tmp/etc/ssl/' debian/rules
+
+# Remove the previous custom FIPS installation from override_dh_auto_build-arch and override_dh_auto_build-indep
+sed -i '/# install our custom fips.so/,/cp CUSTOMFIPS\/providers\/fipsmodule.cnf build_shared\/providers\/fipsmodule.cnf/d' debian/rules
+
+# Add custom FIPS installation to override_dh_auto_install-arch
+sed -i '/override_dh_auto_install-arch:/a\
+\tmkdir -p debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules\
+\tcp -f CUSTOMFIPS/providers/fips.so debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules/\
+\tcp -f CUSTOMFIPS/providers/fipsmodule.cnf debian/tmp/etc/ssl/' debian/rules
 
 
 sed -i '/CONFARGS *=/ s/$/ enable-fips/' debian/rules

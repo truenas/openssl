@@ -38,3 +38,4 @@ sed -i '0,/^\s*\mv debian\/tmp\/usr\/include\/openssl\/configuration.h debian\/t
 
 
 sed -i '/CONFARGS *=/ s/$/ enable-fips/' debian/rules
+echo "usr/lib/ssl/fipsmodule.cnf" >> debian/openssl.install

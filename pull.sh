@@ -30,9 +30,12 @@ cd ..
 sed -i '/^\s*\$(MAKE) -C build_shared all/a\
 \
 \t# install our custom fips.so\
-\tcp CUSTOMFIPS/providers/fips.so providers/fips.so\
-\tcp CUSTOMFIPS/providers/fipsmodule.cnf providers/fipsmodule.cnf' debian/rules
+\t# I am unsure if we use the build_shared or build_static, pretty sure shared.\
+\t# Just to be safe I moved it to both.\
+\tcp CUSTOMFIPS/providers/fips.so build_static/providers/fips.so\
+\tcp CUSTOMFIPS/providers/fipsmodule.cnf build_static/providers/fipsmodule.cnf\
+\tcp CUSTOMFIPS/providers/fips.so build_shared/providers/fips.so\
+\tcp CUSTOMFIPS/providers/fipsmodule.cnf build_shared/providers/fipsmodule.cnf' debian/rules
 
 
 sed -i '/CONFARGS *=/ s/$/ enable-fips/' debian/rules
-echo "usr/lib/ssl/fipsmodule.cnf" >> debian/openssl.install

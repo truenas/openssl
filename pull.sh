@@ -29,8 +29,7 @@ cd ..
 
 sed -i '/^\s*\$(MAKE) -C build_shared all/a\
 \
-# install our custom fips.so\
-override_dh_auto_build:\
+\t# install our custom fips.so\
 \tcp CUSTOMFIPS/providers/fips.so providers/fips.so\
 \tcp CUSTOMFIPS/providers/fipsmodule.cnf providers/fipsmodule.cnf' debian/rules
 

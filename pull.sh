@@ -27,10 +27,6 @@ make -j$(nproc)
 
 cd ..
 
-sed -i '/override_dh_auto_configure:/a\
-\tmkdir -p debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules\
-\tcp CUSTOMFIPS/providers/fips.so debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules/\
-\tcp CUSTOMFIPS/providers/fipsmodule.cnf debian/tmp/etc/ssl/' debian/rules
 
 sed -i '/override_dh_auto_install-arch:/a\
 \tmkdir -p debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules\

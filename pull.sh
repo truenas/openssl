@@ -31,7 +31,7 @@ cd ..
 sed -i '/^override_dh_installchangelogs/i \
 \t# install our custom FIPS provider\
 \tcp CUSTOMFIPS/providers/fips.so debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules/fips.so\
-\tcp CUSTOMFIPS/providers/fipsmodule.cnf debian/tmp/usr/lib/ssl/fipsmodule.cnf\n\t$(MAKE) tests\n' debian/rules
+\tcp CUSTOMFIPS/providers/fipsmodule.cnf debian/tmp/usr/lib/ssl/fipsmodule.cnf\n\t$(MAKE) test\n' debian/rules
 
 
 sed -i '/CONFARGS *=/ s/$/ enable-fips/' debian/rules

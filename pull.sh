@@ -30,8 +30,8 @@ cd ..
 sed -i '/^\s*\$(MAKE) -C build_shared all/a\
 \
 \t# install our custom FIPs data\
-\tcp CUSTOMFIPS/providers/fips.so /providers/fips.so\
-\tcp CUSTOMFIPS/providers/fipsmodule.cnf /providers/fipsmodule.cnf' debian/rules
+\tcp CUSTOMFIPS/providers/fips.so providers/fips.so\
+\tcp CUSTOMFIPS/providers/fipsmodule.cnf providers/fipsmodule.cnf' debian/rules
 
 
 sed -i '/CONFARGS *=/ s/$/ enable-fips/' debian/rules

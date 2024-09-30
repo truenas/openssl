@@ -27,10 +27,11 @@ make -j$(nproc)
 
 cd ..
 
+# inject our custom FIPS module/config. This places it above the override_dh_installchangelogs (the end of override_dh_auto_install-arch)
 sed -i '/^override_dh_installchangelogs/i \
-\t# install our custom FIPs data\
+\t# install our custom FIPS provider\
 \tcp CUSTOMFIPS/providers/fips.so debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules/fips.so\
-\tcp CUSTOMFIPS/providers/fipsmodule.cnf debian/tmp/usr/lib/ssl/fipsmodule.cnf\n' debian/rules
+\tcp CUSTOMFIPS/providers/fipsmodule.cnf debian/tmp/usr/lib/ssl/fipsmodule.cnf\n$(MAKE) -C tests\n' debian/rules
 
 
 sed -i '/CONFARGS *=/ s/$/ enable-fips/' debian/rules

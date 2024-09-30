@@ -27,11 +27,10 @@ make -j$(nproc)
 
 cd ..
 
-sed -i '/^\s*\mv debian\/tmp\/usr\/include\/openssl\/configuration.h debian\/tmp\/usr\/include\/$(DEB_HOST_MULTIARCH)\/openssl\//a\
-\
+sed -i '/^override_dh_installchangelogs/i \
 \t# install our custom FIPs data\
 \tcp CUSTOMFIPS/providers/fips.so debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules/fips.so\
-\tcp CUSTOMFIPS/providers/fipsmodule.cnf debian/tmp/usr/lib/ssl/fipsmodule.cnf' debian/rules
+\tcp CUSTOMFIPS/providers/fipsmodule.cnf debian/tmp/usr/lib/ssl/fipsmodule.cnf\n' debian/rules
 
 
 sed -i '/CONFARGS *=/ s/$/ enable-fips/' debian/rules

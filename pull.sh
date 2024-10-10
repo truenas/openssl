@@ -4,8 +4,9 @@ PACKAGE_FIRST_CHAR=$(printf "%s" "$PACKAGE" | cut -c1)
 VERSION=3.0.14
 REVISION=1
 DEBIAN_SUFFIX='~deb12u2'
-FIPS_VERSION=3.0.9 #Most recent validated FIPS (https://openssl-library.org/source/)
 
+#Most recent validated FIPS (https://openssl-library.org/source/)
+FIPS_VERSION=3.0.9
 
 wget http://deb.debian.org/debian/pool/main/$PACKAGE_FIRST_CHAR/$PACKAGE/${PACKAGE}_$VERSION-$REVISION$DEBIAN_SUFFIX.debian.tar.xz
 tar xf ${PACKAGE}_$VERSION-$REVISION$DEBIAN_SUFFIX.debian.tar.xz

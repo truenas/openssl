@@ -1,9 +1,9 @@
 #!/bin/bash -ex
 PACKAGE="openssl"
 PACKAGE_FIRST_CHAR=$(printf "%s" "$PACKAGE" | cut -c1)
-VERSION=3.0.14
+VERSION=3.0.15
 REVISION=1
-DEBIAN_SUFFIX='~deb12u2'
+DEBIAN_SUFFIX='~deb12u1'
 
 #Most recent validated FIPS (https://openssl-library.org/source/)
 FIPS_VERSION=3.0.9

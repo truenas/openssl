@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 PACKAGE="openssl"
 PACKAGE_FIRST_CHAR=$(printf "%s" "$PACKAGE" | cut -c1)
-VERSION=3.0.15
+VERSION=3.0.16
 REVISION=1
 DEBIAN_SUFFIX='~deb12u1'
 

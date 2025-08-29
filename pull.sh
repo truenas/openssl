@@ -35,6 +35,6 @@ sed -i '/mv debian\/tmp\/usr\/include\/openssl\/configuration.h/i \
 \tcp CUSTOMFIPS/providers/fips.so debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/ossl-modules/fips.so\
 \tcp CUSTOMFIPS/providers/fipsmodule.cnf debian/tmp/usr/lib/ssl/fipsmodule.cnf' debian/rules
 
-
-sed -i '/CONFARGS *=/ s/$/ enable-fips/' debian/rules
+# Note: OpenSSL 3.5.1 already has enable-fips in CONFARGS, so no need to add it
+# sed -i '/CONFARGS *=/ s/$/ enable-fips/' debian/rules
 echo "usr/lib/ssl/fipsmodule.cnf" >> debian/openssl.install
